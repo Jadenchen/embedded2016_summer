@@ -13,6 +13,10 @@ List **head = NULL;
 List * New(int a){
 
 	List *tmp = (List *)malloc(sizeof(List));
+	if (tmp == NULL){
+		printf("can not malloc \n");
+		return NULL;
+	}
 	tmp-> val = a;
 	tmp-> next = NULL;
 	return tmp;
