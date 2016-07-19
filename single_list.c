@@ -10,8 +10,7 @@ typedef struct _List {
 
 void print_list(List *head)
 {
-	if (head == NULL)
-		printf("head is null\n");
+
     assert(head);
     List *curr = head;
 
@@ -20,18 +19,21 @@ void print_list(List *head)
         curr = curr->next;
     }
 
-
 }
 
 int swap (List **head, List *a, List *b)
 {
-
     assert(head);
     assert(a);
     assert(b);
+
+	/*a = b */
+	if(a == b)
+		return 0;
+    
     /*head = a or b */
     if (a == *head || b == *head) {
-        List *nohead = (a = *head) ? b:a;
+        List *nohead = (a == *head) ? b:a;
         List *curr = *head;
 
         for (; curr->next != nohead; curr = curr->next);
@@ -43,7 +45,7 @@ int swap (List **head, List *a, List *b)
         return 0;
     }
 
-
+	/* a and b are not head */
     List *prev_a = *head;
     List *prev_b = *head;
 
@@ -62,23 +64,19 @@ int swap (List **head, List *a, List *b)
 
 int bubble_sort(List **head)
 {
+	unsigned int flag = 1;
 
-    assert(head);
-
-    List *tmp = *head;
-
-    while (tmp) {
-        List *tmp1 = tmp->next;
-        while(tmp1) {
-            if(tmp->val > tmp1->val) {
-                swap(head, tmp, tmp1);
-            }
-            tmp1 = tmp1->next;
-        }
-
-        tmp = tmp->next;
-    }
-
+	while (flag){
+		List *curr = *head;
+		flag = 0;
+		while(curr != NULL && curr->next != NULL){
+			if(curr->val > curr->next->val){
+				flag = 1;
+				swap (head, curr, curr->next);
+			}
+			curr = curr->next;
+		}
+	}
     return 0;
 }
 
@@ -113,7 +111,7 @@ List *list_append (List **list, int val)
 int main (int argc, char *argv[])
 {
 
-    int test_count = atoi(argv[1]);
+	int test_count = atoi(argv[1]);
     char *test_input = argv[2];
 
     FILE *file = fopen(test_input, "r");
@@ -135,11 +133,18 @@ int main (int argc, char *argv[])
     print_list(list);
 	
 
-	
-/*	int i;
+/*	
+	int i;
 	List *list = NULL;
-	for (i = 0; i < 5; i++)
-		list = list_append(&list, i);
+	for (i = 0; i < 10; i++){
+		int random_number = rand() % 20;
+		list = list_append(&list, random_number);
+	}
+	print_list(list);
+
+	printf("swap\n");
+	
+	bubble_sort(&list);
 
 	print_list(list);
 */
