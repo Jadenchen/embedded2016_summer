@@ -133,20 +133,5 @@ int main (int argc, char *argv[])
     print_list(list);
 	
 
-/*	
-	int i;
-	List *list = NULL;
-	for (i = 0; i < 10; i++){
-		int random_number = rand() % 20;
-		list = list_append(&list, random_number);
-	}
-	print_list(list);
-
-	printf("swap\n");
-	
-	bubble_sort(&list);
-
-	print_list(list);
-*/
-    return 0;
+   return 0;
 }
